@@ -1,0 +1,343 @@
+/* Default (Light Mode) */
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 30px auto;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between; /* teks kiri, tombol kanan */
+  align-items: center; /* tombol vertikal sejajar teks */
+  padding: 10px 20px;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column; /* h1 di atas, h6 di bawah */
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 2em;
+}
+
+.header h6 {
+  margin: 0;
+  font-weight: normal;
+  color: #555;
+}
+
+
+
+#theme-toggle {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #00a884;   /* hijau utama */
+  color: white;
+  font-weight: bold;
+}
+
+/* Chat Box */
+.chat-box {
+  height: 400px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin: 15px 0;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+
+.message {
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  max-width: 80%;
+}
+
+/* Bubble user */
+.message.user {
+  background: #00a884;     /* hijau utama */
+  color: #fff;
+  margin-left: auto;
+  text-align: left;
+  padding: 10px 14px;
+  border-radius: 12px 12px 0 12px;
+  max-width: 70%;
+  width: fit-content;
+  word-wrap: break-word;
+}
+
+/* Bubble bot */
+.message.bot {
+  background: #e0f7ef;    /* hijau soft */
+  color: #333;
+  margin-right: auto;
+  text-align: left;
+  border-radius: 12px 12px 12px 0;
+}
+
+/* Dark Mode */
+body.dark {
+  background: #121212;
+  color: #f4f4f4;
+}
+
+body.dark .container {
+  background: #1e1e1e;
+  box-shadow: 0 4px 15px rgba(255,255,255,0.05);
+}
+
+body.dark .chat-box {
+  background: #2a2a2a;
+  border-color: #444;
+}
+
+body.dark .message.bot {
+  background: #1e332e;   /* hijau soft gelap */
+  color: #f4f4f4;
+}
+
+body.dark .message.user {
+  background: #00c497;   /* hijau terang */
+}
+
+body.dark #theme-toggle {
+  background: #00c497;
+  color: #121212;
+}
+
+/* Input dan Form */
+#chat-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  align-items: center;
+}
+
+#user-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+#user-input:focus {
+  border-color: #00a884;
+  box-shadow: 0 0 6px rgba(0, 168, 132, 0.3);
+}
+
+/* Tombol kirim */
+#chat-form button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #00a884;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#chat-form button:hover {
+  background: #029c7a;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#chat-form button:active {
+  transform: scale(0.92);
+}
+
+/* Dark Mode Input */
+body.dark #user-input {
+  background: #2a2a2a;
+  border-color: #444;
+  color: #f4f4f4;
+}
+
+body.dark #user-input:focus {
+  border-color: #00c497;
+  box-shadow: 0 0 6px rgba(0, 196, 151, 0.4);
+}
+
+body.dark #chat-form button {
+  background: #00c497;
+}
+
+body.dark #chat-form button:hover {
+  background: #33d3af;
+}
+
+/* Animasi titik-titik ala WA */
+.message.bot.typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #dff6dd;
+  padding: 8px 14px;
+  border-radius: 20px;
+  margin: 6px 0;
+}
+
+.message.bot.typing span {
+  width: 6px;
+  height: 6px;
+  background: #333;
+  border-radius: 50%;
+  display: inline-block;
+  animation: blink 1.4s infinite both;
+}
+
+.message.bot.typing span:nth-child(1) { animation-delay: 0s; }
+.message.bot.typing span:nth-child(2) { animation-delay: 0.2s; }
+.message.bot.typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+  0%, 80%, 100% { opacity: 0; }
+  40% { opacity: 1; }
+}
+
+.attach-menu {
+  position: absolute;
+  bottom: 60px; /* sesuaikan dengan tinggi form */
+  left: 20px;
+  background: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.attach-menu button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.message.typing span.dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin: 0 2px;
+  background: #3CB371;
+  border-radius: 50%;
+  animation: blink 1.4s infinite both;
+}
+.message.typing span.dot:nth-child(1) { animation-delay: 0s; }
+.message.typing span.dot:nth-child(2) { animation-delay: 0.2s; }
+.message.typing span.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+  0%, 80%, 100% { opacity: 0; }
+  40% { opacity: 1; }
+}
+
+/* --- Attachment Menu --- */
+.attach-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: absolute;
+  z-index: 1000;
+  background: #f4f4f4;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+body.dark .attach-menu {
+  background: #2a2a2a;
+  border-color: #444;
+}
+
+.attach-menu button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* --- Preview Container --- */
+#preview-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+/* --- Typing animation --- */
+.message.typing span.dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin: 0 2px;
+  background: #3CB371;
+  border-radius: 50%;
+  animation: blink 1.4s infinite both;
+}
+
+.message.typing span.dot:nth-child(1) { animation-delay: 0s; }
+.message.typing span.dot:nth-child(2) { animation-delay: 0.2s; }
+.message.typing span.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+  0%, 80%, 100% { opacity: 0; }
+  40% { opacity: 1; }
+}
+
+/* --- Images inside chat --- */
+.message img {
+  max-width: 200px;
+  border-radius: 8px;
+}
+
+/* --- Scroll smooth --- */
+.chat-box {
+  scroll-behavior: smooth;
+}
+
+.typing {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.typing .dot {
+  width: 8px;
+  height: 8px;
+  background: #3CB371; /* hijau soft */
+  border-radius: 50%;
+  animation: blink 1.4s infinite both;
+}
+.typing .dot:nth-child(2) { animation-delay: 0.2s; }
+.typing .dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+  0%, 80%, 100% { opacity: 0; }
+  40% { opacity: 1; }
+}
+
+
+

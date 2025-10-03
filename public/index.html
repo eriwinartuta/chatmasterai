@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gemini AI Chatbot</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="header-text">
+          <h1>Gemini AI Chatbot</h1>
+          <h6>Created by: Ridhotuta</h6>
+        </div>
+        <button id="theme-toggle">🌙 Dark Mode</button>
+      </div>
+
+      <div id="chat-box" class="chat-box"></div>
+
+      <form id="chat-form">
+        <button type="button" id="attach-btn">+</button>
+        <input
+          type="text"
+          id="user-input"
+          placeholder="Ketik pesan..."
+          autocomplete="off"
+          required
+        />
+        <button type="submit">Kirim</button>
+
+        <input
+          type="file"
+          id="image-input"
+          accept="image/*"
+          style="display: none"
+        />
+        <input
+          type="file"
+          id="doc-input"
+          accept=".pdf,.doc,.docx,.txt"
+          style="display: none"
+        />
+      </form>
+    </div>
+
+    <div id="attach-menu" class="attach-menu" style="display: none">
+      <button id="choose-image">Gambar</button>
+      <button id="choose-doc">Dokumen</button>
+    </div>
+
+    <!-- Markdown + Highlight -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+    />
+
+    <script src="script.js"></script>
+  </body>
+</html>
