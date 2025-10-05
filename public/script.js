@@ -165,11 +165,53 @@ imageInput.addEventListener("change", async () => {
 });
 
 // --- Upload dokumen ---
+// --- Upload dokumen ---
 docInput.addEventListener("change", async () => {
   if (docInput.files.length === 0) return;
   const file = docInput.files[0];
-  appendMessage("user", "Mengirim dokumen...");
 
+  // --- tampilkan info dokumen di chat (sebelum dikirim) ---
+  const docMsg = document.createElement("div");
+  docMsg.classList.add("message", "user");
+
+  const fileInfo = document.createElement("div");
+  fileInfo.style.display = "inline-block";
+  fileInfo.style.background = "#e8f5e9"; // hijau lembut
+  fileInfo.style.border = "1px solid #a5d6a7";
+  fileInfo.style.padding = "10px";
+  fileInfo.style.borderRadius = "8px";
+  fileInfo.style.fontSize = "14px";
+  fileInfo.style.color = "#2e7d32";
+
+  // ikon dokumen (emoji PDF)
+  const icon = document.createElement("span");
+  icon.textContent = "📄 ";
+  icon.style.marginRight = "6px";
+
+  const name = document.createElement("strong");
+  name.textContent = file.name;
+
+  const type = document.createElement("div");
+  type.textContent = `Tipe file: ${file.type || "tidak diketahui"}`;
+  type.style.fontSize = "12px";
+  type.style.color = "#555";
+
+  fileInfo.appendChild(icon);
+  fileInfo.appendChild(name);
+  fileInfo.appendChild(document.createElement("br"));
+  fileInfo.appendChild(type);
+  docMsg.appendChild(fileInfo);
+  chatBox.appendChild(docMsg);
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  // tampilkan status "AI sedang menganalisis..."
+  const typing = document.createElement("div");
+  typing.classList.add("message", "bot", "typing");
+  typing.innerHTML = `<span class="dot"></span><span class="dot"></span><span class="dot"></span>`;
+  chatBox.appendChild(typing);
+  chatBox.scrollTop = chatBox.scrollHeight;
+
+  // --- kirim dokumen ke server ---
   const formData = new FormData();
   formData.append("document", file);
   formData.append("prompt", "Jelaskan isi dokumen ini");
@@ -180,9 +222,16 @@ docInput.addEventListener("change", async () => {
       body: formData,
     });
     const data = await res.json();
-    if (data.success) appendMessage("bot", data.result);
-    else appendMessage("bot", "⚠️ " + (data.error || "Gagal mengirim dokumen"));
+
+    typing.remove();
+
+    if (data.success) {
+      appendMessage("bot", data.result);
+    } else {
+      appendMessage("bot", "⚠️ " + (data.error || "Gagal mengirim dokumen"));
+    }
   } catch (err) {
+    typing.remove();
     appendMessage("bot", "❌ Error: " + err.message);
   }
 });

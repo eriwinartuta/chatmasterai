@@ -5,6 +5,7 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
+   background-color: #e8f5e9;
 }
 
 .container {
@@ -221,21 +222,33 @@ body.dark #chat-form button:hover {
 
 .attach-menu {
   position: absolute;
-  bottom: 60px; /* sesuaikan dengan tinggi form */
-  left: 20px;
-  background: #f4f4f4;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+  bottom: 60px;
+  left: 10px;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  padding: 8px;
 }
 
 .attach-menu button {
-  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #eafbea;
+  color: #1d7c32;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 5px 0;
   cursor: pointer;
+  font-weight: 500;
 }
+
+.attach-menu button:hover {
+  background: #c6f6c6;
+}
+
 
 .message.typing span.dot {
   display: inline-block;

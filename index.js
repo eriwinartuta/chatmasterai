@@ -13,6 +13,8 @@ const ai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const upload = multer({ storage: multer.memoryStorage() });
 
+///endpoint promptext///
+
 app.post("/api/chat", async (req, res) => {
   const { messages } = req.body;
 
@@ -50,15 +52,13 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
+///endpoint gambar///
+
 app.post("/api/jelasingambar", upload.single("image"), async (req, res) => {
   try {
-    const { prompt } = req.body; // Ambil prompt dari form data
-    const imageBase64 = req.file.buffer.toString("base64"); // Konversi file menjadi base64
-
-    // Pilih model Gemini
+    const { prompt } = req.body;
+    const imageBase64 = req.file.buffer.toString("base64");
     const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" });
-
-    // Kirim prompt + gambar ke model
     const resp = await model.generateContent({
       contents: [
         {
@@ -84,7 +84,52 @@ app.post("/api/jelasingambar", upload.single("image"), async (req, res) => {
   }
 });
 
-// Entry point
+///endpoint dokumen///
+
+app.post("/api/jelasdokumen", upload.single("document"), async (req, res) => {
+  try {
+    const { prompt } = req.body;
+    const file = req.file;
+
+    if (!file) {
+      return res.json({ success: false, error: "Dokumen tidak ditemukan" });
+    }
+
+    // Konversi dokumen jadi base64
+    const fileBase64 = file.buffer.toString("base64");
+
+    const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" });
+
+    // Panggil model Gemini
+    const resp = await model.generateContent({
+      contents: [
+        {
+          role: "user",
+          parts: [
+            { text: prompt || "Jelaskan isi dokumen ini:" },
+            {
+              inlineData: {
+                mimeType: file.mimetype,
+                data: fileBase64,
+              },
+            },
+          ],
+        },
+      ],
+    });
+
+    // Ambil teks hasil dari Gemini
+    const resultText = resp.response.text();
+
+    res.json({ success: true, result: resultText });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 app.listen(3000, () => {
-  console.log("🚀 Chatbot Gemini jalan di http://localhost:3000");
+  console.log(
+    "🚀 Chatbot Gemini  Ai created by Ridhotuta jalan di http://localhost:3000"
+  );
 });
